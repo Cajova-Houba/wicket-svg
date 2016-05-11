@@ -45,5 +45,6 @@ public abstract class AbstractSvgComponent<T> extends WebMarkupContainer {
     public void setModelObject(final T object) {
         model.setObject(object);
     }
+    
 
 }

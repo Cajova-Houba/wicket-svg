@@ -1,6 +1,11 @@
 package org.apache.wicket.svg.markup.basic;
 
+import java.awt.RenderingHints;
+import java.util.Iterator;
+
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.Component;
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
@@ -10,21 +15,21 @@ import org.apache.wicket.svg.model.SvgDimensions;
 /**
  * A container for svg elements. Use this for the &lt;svg&gt; tag.
  * 
- * The container itself is just modified repeating view so the markup like this is expected:
+ * The container itself contains a repeating view for SVG components so the markup like this is expected:
  * <pre>
  * {@code
  * <svg>
- * 	<svgComponent wicket:id="someId"/>		
+ * 	<svgComponent wicket:id="components"/>		
  * </svg>
  *  }
  *  </pre>
  *  
  *  {@code svgComponent} tag will be replaced with any svg shape extending the AbstractCoordinateSvgComponent 
- *  you put in this repeating view.
+ *  you add via add() method.
  * @author Zdenda
  *
  */
-public class SvgContainer<T extends SvgDimensions> extends RepeatingView {
+public class SvgContainer<T extends SvgDimensions> extends AbstractSvgComponent<T> {
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -32,11 +37,21 @@ public class SvgContainer<T extends SvgDimensions> extends RepeatingView {
 	 */
 	protected static final String TAG = "svg";
 	
+	/**
+	 * A tag for components repeating view.
+	 */
+	protected static final String COMPONENTS = "components";
+	
 	protected static final String WIDTH_ATTR_NAME = "width";
 	
 	protected static final String HEIGHT_ATTR_NAME = "height";
 	
 	private IModel<T> model;
+	
+	/**
+	 * Repeating view to display SVG components
+	 */
+	private RepeatingView components;
 	
 	/**
 	 * You can use this constructor to specify dimensions of the svg element.
@@ -73,17 +88,23 @@ public class SvgContainer<T extends SvgDimensions> extends RepeatingView {
 		checkComponentTag(tag, getTag());
 		
 		super.onComponentTag(tag);
+		
 	}
 	
 	protected void initComponent() {
+		
+		components = new RepeatingView(COMPONENTS);
+		super.add(components);
 		
 		//no attributes to add
 		if(getModelObject() == null) {
 			return;
 		}
 
+		
 		//width
 		add(new AttributeModifier(getWidthAttributeName(), new AbstractReadOnlyModel<String>() {
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public String getObject() {
@@ -94,6 +115,7 @@ public class SvgContainer<T extends SvgDimensions> extends RepeatingView {
 		
 		//height
 		add(new AttributeModifier(getHeightAttributeName(), new AbstractReadOnlyModel<String>() {
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public String getObject() {
@@ -103,6 +125,21 @@ public class SvgContainer<T extends SvgDimensions> extends RepeatingView {
 		}));
 	}
 
+	@Override
+	public MarkupContainer add(Component... childs) {
+		
+		//add svg components to the repeater
+		for(Component child : childs) {
+			if(child instanceof AbstractCoordinateSvgComponent) {
+				components.add(child);
+			} else {
+				add(child);
+			}
+		}
+
+		return this;
+	}
+	
 	protected String getTag() {
 		return TAG;
 	}
@@ -114,5 +151,9 @@ public class SvgContainer<T extends SvgDimensions> extends RepeatingView {
     protected String getHeightAttributeName() {
     	return HEIGHT_ATTR_NAME;
     }
-	
+    
+    public String newChildId() {
+    	return components.newChildId();
+    }
+    
 }
