@@ -1,7 +1,9 @@
 package org.apache.wicket.svg.model;
 
-public class RectModelItem implements SvgCoordinate, SvgHeight, SvgWidth, SvgXYRadius {
-
+public class RectModelItem implements SvgCoordinate, SvgHeight, SvgWidth, SvgXYRadius, SvgStyle {
+	private static final long serialVersionUID = 1L;
+	
+	
 	private double x;
 	private double y;
 	private double rx;
@@ -9,6 +11,7 @@ public class RectModelItem implements SvgCoordinate, SvgHeight, SvgWidth, SvgXYR
 	private double width;
 	private double height;
 	private boolean percent;
+	private String style;
 
 	public RectModelItem() {
 	}
@@ -21,19 +24,14 @@ public class RectModelItem implements SvgCoordinate, SvgHeight, SvgWidth, SvgXYR
 
 	public RectModelItem(final double x, final double y, final double width, final double height,
 			final boolean percent) {
-		this.x = x;
-		this.y = y;
+		this(x,y,percent);
 		this.width = width;
 		this.height = height;
-		this.percent = percent;
 	}
 
 	public RectModelItem(final double x, final double y, final double width, final double height,
 			final double rx, final double ry) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
+		this(x,y,width, height, false);
 		this.rx = rx;
 		this.ry = ry;
 	}
@@ -100,4 +98,15 @@ public class RectModelItem implements SvgCoordinate, SvgHeight, SvgWidth, SvgXYR
 	public void setPercent(final boolean percent) {
 		this.percent = percent;
 	}
+
+	@Override
+	public String getStyle() {
+		return style;
+	}
+
+	public void setStyle(String style) {
+		this.style = style;
+	}
+	
+	
 }

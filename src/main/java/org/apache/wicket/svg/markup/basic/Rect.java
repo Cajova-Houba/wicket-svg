@@ -5,10 +5,11 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.svg.model.SvgCoordinate;
 import org.apache.wicket.svg.model.SvgHeight;
+import org.apache.wicket.svg.model.SvgStyle;
 import org.apache.wicket.svg.model.SvgWidth;
 import org.apache.wicket.svg.model.SvgXYRadius;
 
-public class Rect<T extends SvgCoordinate & SvgWidth & SvgHeight & SvgXYRadius>
+public class Rect<T extends SvgCoordinate & SvgWidth & SvgHeight & SvgXYRadius & SvgStyle>
 		extends AbstractCoordinateSvgComponent<T> {
 
 	private static final long serialVersionUID = 1L;
@@ -56,6 +57,17 @@ public class Rect<T extends SvgCoordinate & SvgWidth & SvgHeight & SvgXYRadius>
 				return Double.toString(getModelObject().getRY()) + (getModelObject().isPercent() ? "%" : "");
 			}
 		}));
+		
+		if(getModelObject().getStyle().length() > 0) {
+			add(new AttributeModifier("style", new AbstractReadOnlyModel<String>() {
+
+				@Override
+				public String getObject() {
+					return getModelObject().getStyle();
+				}
+				
+			}));
+		}
 	}
 
 	@Override

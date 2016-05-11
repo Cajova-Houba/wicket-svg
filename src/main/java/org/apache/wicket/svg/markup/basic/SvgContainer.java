@@ -1,8 +1,5 @@
 package org.apache.wicket.svg.markup.basic;
 
-import java.awt.RenderingHints;
-import java.util.Iterator;
-
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
@@ -10,6 +7,7 @@ import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.svg.model.SvgDimensions;
 
 /**
@@ -67,6 +65,32 @@ public class SvgContainer<T extends SvgDimensions> extends AbstractSvgComponent<
 	public SvgContainer(String id) {
 		super(id);
 		initComponent();
+	}
+	
+	/**
+	 * Creates a new dimensions model with defined width and height. Percent is set to false.
+	 * @param w
+	 * @param h
+	 * @return
+	 */
+	public static IModel<SvgDimensions> createSimpleDimensionsModel(final double w, final double h) {
+		return new Model<SvgDimensions>(new SvgDimensions() {
+			
+			@Override
+			public double getWidth() {
+				return w;
+			}
+			
+			@Override
+			public double getHeight() {
+				return w;
+			}
+			
+			@Override
+			public boolean isPercent() {
+				return false;
+			}
+		});
 	}
 	
 	public IModel<T> getModel() {
