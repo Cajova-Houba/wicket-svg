@@ -38,6 +38,11 @@ public class SvgContainer<T extends SvgDimensions> extends RepeatingView {
 	
 	private IModel<T> model;
 	
+	/**
+	 * You can use this constructor to specify dimensions of the svg element.
+	 * @param id Wicket id.
+	 * @param model Model of {@code SvgDimensions} object
+	 */
 	public SvgContainer(String id, IModel<T> model) {
 		super(id, model);
 		this.model = model;
@@ -58,7 +63,7 @@ public class SvgContainer<T extends SvgDimensions> extends RepeatingView {
 	}
 	
 	public T getModelObject() {
-		return model.getObject();
+		return getModel() == null ? null : model.getObject();
 	}
 
 	@Override
