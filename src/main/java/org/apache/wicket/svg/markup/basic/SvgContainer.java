@@ -83,7 +83,7 @@ public class SvgContainer<T extends SvgDimensions> extends AbstractSvgComponent<
 			
 			@Override
 			public double getHeight() {
-				return w;
+				return h;
 			}
 			
 			@Override

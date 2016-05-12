@@ -16,6 +16,12 @@ public class RectModel extends AbstractReadOnlyModel<RectModelItem> {
     	this(x,y,width,height,percent);
     	rectModelItem.setStyle(style);
     }
+    
+    public RectModel(final double x, final double y, final double width, final double height, final boolean percent, final String style, String id) {
+    	this(x,y,width,height,percent);
+    	rectModelItem.setStyle(style);
+    	rectModelItem.setId(id);
+    }
 
     @Override
     public RectModelItem getObject() {

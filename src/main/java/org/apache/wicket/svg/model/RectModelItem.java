@@ -1,6 +1,6 @@
 package org.apache.wicket.svg.model;
 
-public class RectModelItem implements SvgCoordinate, SvgHeight, SvgWidth, SvgXYRadius, SvgStyle {
+public class RectModelItem implements SvgCoordinate, SvgHeight, SvgWidth, SvgXYRadius, SvgAdditional {
 	private static final long serialVersionUID = 1L;
 	
 	
@@ -12,6 +12,7 @@ public class RectModelItem implements SvgCoordinate, SvgHeight, SvgWidth, SvgXYR
 	private double height;
 	private boolean percent;
 	private String style;
+	private String id;
 
 	public RectModelItem() {
 	}
@@ -20,6 +21,8 @@ public class RectModelItem implements SvgCoordinate, SvgHeight, SvgWidth, SvgXYR
 		this.x = x;
 		this.y = y;
 		this.percent = percent;
+		style="";
+		id="";
 	}
 
 	public RectModelItem(final double x, final double y, final double width, final double height,
@@ -107,6 +110,16 @@ public class RectModelItem implements SvgCoordinate, SvgHeight, SvgWidth, SvgXYR
 	public void setStyle(String style) {
 		this.style = style;
 	}
+
+	@Override
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 	
 	
 }
