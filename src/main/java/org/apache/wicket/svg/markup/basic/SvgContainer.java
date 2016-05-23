@@ -154,10 +154,10 @@ public class SvgContainer<T extends SvgDimensions> extends AbstractSvgComponent<
 		
 		//add svg components to the repeater
 		for(Component child : childs) {
-			if(child instanceof AbstractCoordinateSvgComponent) {
+			if(child instanceof AbstractReplacableSvgComponent) {
 				components.add(child);
 			} else {
-				add(child);
+				super.add(child);
 			}
 		}
 
