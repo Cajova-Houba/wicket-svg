@@ -3,10 +3,11 @@ package org.apache.wicket.svg.markup.basic;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.svg.model.SvgAdditional;
 import org.apache.wicket.svg.model.SvgCoordinate;
 import org.apache.wicket.svg.model.SvgXYRadius;
 
-public class Ellipse<T extends SvgCoordinate & SvgXYRadius> extends AbstractCoordinateSvgComponent<T> {
+public class Ellipse<T extends SvgCoordinate & SvgXYRadius & SvgAdditional> extends AbstractCoordinateSvgComponent<T> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -39,6 +40,17 @@ public class Ellipse<T extends SvgCoordinate & SvgXYRadius> extends AbstractCoor
 				return Double.toString(getModelObject().getRY()) + (getModelObject().isPercent() ? "%" : "");
 			}
 		}));
+		
+		if(getModelObject().getStyle().length() > 0) {
+			add(new AttributeModifier("style", new AbstractReadOnlyModel<String>() {
+
+				@Override
+				public String getObject() {
+					return getModelObject().getStyle();
+				}
+				
+			}));
+		}
 
 	}
 

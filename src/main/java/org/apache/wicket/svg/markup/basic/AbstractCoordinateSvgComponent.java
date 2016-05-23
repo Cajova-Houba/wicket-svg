@@ -7,15 +7,10 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.svg.model.SvgCoordinate;
 
-public abstract class AbstractCoordinateSvgComponent<T extends SvgCoordinate> extends AbstractSvgComponent<T> {
+public abstract class AbstractCoordinateSvgComponent<T extends SvgCoordinate> extends AbstractReplacableSvgComponent<T> {
 
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * If the tag from the markup has this value, it can be replaced.
-	 */
-	private static final String REPLACABLE_TAG = "svgComponent";
-
 	public AbstractCoordinateSvgComponent(final String wicketId) {
 		super(wicketId);
 		initComponent();
@@ -24,20 +19,6 @@ public abstract class AbstractCoordinateSvgComponent<T extends SvgCoordinate> ex
 	public AbstractCoordinateSvgComponent(final String wicketId, final IModel<T> model) {
 		super(wicketId, model);
 		initComponent();
-	}
-	
-	@Override
-	protected void onComponentTag(ComponentTag tag) {
-		try {
-			super.onComponentTag(tag);
-		} catch (MarkupException e) {
-			if(tag.getName().equals(REPLACABLE_TAG)) {
-				//set the tag
-				tag.setName(getTag());
-			} else {
-				throw(e);
-			}
-		}
 	}
 
 	protected void initComponent() {

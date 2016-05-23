@@ -1,12 +1,13 @@
 package org.apache.wicket.svg.model;
 
-public class EllipseModelItem implements SvgCoordinate, SvgXYRadius {
+public class EllipseModelItem implements SvgCoordinate, SvgXYRadius, SvgAdditional{
 
     private double cx;
     private double cy;
     private double rx;
     private double ry;
     private boolean percent;
+    private String style;
 
     public EllipseModelItem() {
     }
@@ -45,7 +46,21 @@ public class EllipseModelItem implements SvgCoordinate, SvgXYRadius {
         return ry;
     }
 
-    @Override
+    public void setStyle(String style) {
+		this.style = style;
+	}
+
+	@Override
+	public String getStyle() {
+		return style;
+	}
+
+	@Override
+	public String getId() {
+		return "";
+	}
+
+	@Override
     public boolean isPercent() {
         return percent;
     }

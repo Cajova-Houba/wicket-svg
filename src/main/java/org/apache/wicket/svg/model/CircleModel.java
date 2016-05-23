@@ -11,6 +11,15 @@ public class CircleModel extends AbstractReadOnlyModel<CircleModelItem> {
     public CircleModel(final double x, final double y, final double radius, final boolean percent) {
         modelItem = new CircleModelItem(x, y, radius, percent);
     }
+    public CircleModel(final double x, final double y, final double radius, final boolean percent, final String style) {
+        modelItem = new CircleModelItem(x, y, radius, percent);
+        modelItem.setStyle(style);
+    }
+    public CircleModel(final double x, final double y, final double radius, final boolean percent, final String style, final String uid) {
+        modelItem = new CircleModelItem(x, y, radius, percent);
+        modelItem.setStyle(style);
+        modelItem.setId(uid);
+    }
 
     @Override
     public CircleModelItem getObject() {

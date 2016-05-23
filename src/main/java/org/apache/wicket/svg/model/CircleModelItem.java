@@ -1,6 +1,6 @@
 package org.apache.wicket.svg.model;
 
-public class CircleModelItem implements SvgCoordinate, SvgRadius {
+public class CircleModelItem implements SvgCoordinate, SvgRadius, SvgAdditional {
 
     private static final long serialVersionUID = 1L;
 
@@ -8,6 +8,8 @@ public class CircleModelItem implements SvgCoordinate, SvgRadius {
     private double y;
     private double radius;
     private boolean percent;
+    private String style;
+	private String id;
 
     public CircleModelItem() {
     }
@@ -58,7 +60,29 @@ public class CircleModelItem implements SvgCoordinate, SvgRadius {
         return radius;
     }
 
-    public void setRadius(final double radius) {
+    @Override
+    public String getStyle() {
+		return style;
+	}
+
+	public void setStyle(String style) {
+		this.style = style;
+	}
+
+	public void setPercent(boolean percent) {
+		this.percent = percent;
+	}
+
+	@Override
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setRadius(final double radius) {
         this.radius = radius;
     }
 }
