@@ -1,6 +1,6 @@
 package org.apache.wicket.svg.model;
 
-public class TextModelItem implements SvgCoordinate {
+public class TextModelItem implements SvgCoordinate, SvgTransform, SvgAdditional {
 	private static final long serialVersionUID = 1L;
 	
 	private double x;
@@ -8,13 +8,25 @@ public class TextModelItem implements SvgCoordinate {
 	private boolean percent;
 	private String text;
 	private String style;
+	private String transform;
+	private String id;
 
-	public TextModelItem(final double x, final double y, final boolean percent, String text, String style) {
+	public TextModelItem(double x, double y, boolean percent, String text, String style, String transform, String id) {
 		this.x = x;
 		this.y = y;
-		this.text = text;
 		this.percent = percent;
+		this.text = text;
 		this.style = style;
+		this.transform = transform;
+		this.id = id;
+	}
+
+	public TextModelItem(double x, double y, boolean percent, String text, String style, String transform) {
+		this(x,y,percent,text,style,transform,"");
+	}
+
+	public TextModelItem(final double x, final double y, final boolean percent, String text, String style) {
+		this(x,y,percent,text,style, "");
 	}
 
 	@Override
@@ -47,6 +59,18 @@ public class TextModelItem implements SvgCoordinate {
 	public void setStyle(String style) {
 		this.style = style;
 	}
-	
-	
+
+	@Override
+	public String getTransform() {
+		return transform;
+	}
+
+	public void setTransform(String transform) {
+		this.transform = transform;
+	}
+
+	@Override
+	public String getId() {
+		return id;
+	}
 }

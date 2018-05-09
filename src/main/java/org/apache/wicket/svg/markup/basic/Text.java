@@ -28,6 +28,15 @@ public class Text extends AbstractCoordinateSvgComponent<TextModelItem> {
 				
 			}));
 		}
+
+		if(getModelObject().getTransform().length() > 0) {
+			add(new AttributeModifier("transform", new AbstractReadOnlyModel<String>() {
+				@Override
+				public String getObject() {
+					return getModelObject().getTransform();
+				}
+			}));
+		}
 	}
 	
 	/**
